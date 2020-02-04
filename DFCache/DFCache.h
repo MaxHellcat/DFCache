@@ -177,7 +177,7 @@ extern NSString *const DFCacheAttributeMetadataKey;
  @param data Data to be stored into disk cache.
  @param key The unique key.
  */
-- (void)storeData:(NSData *)data forKey:(NSString *)key;
+- (void)storeData:(NSData *)data forKey:(NSString *)key completion:(void (^__nullable)(void))completion;
 
 @end
 

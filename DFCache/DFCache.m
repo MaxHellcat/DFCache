@@ -322,12 +322,17 @@ static NSString *const DFCacheAttributeValueTransformerNameKey = @"_df_cache_val
     return data;
 }
 
-- (void)storeData:(NSData *)data forKey:(NSString *)key {
+- (void)storeData:(NSData *)data forKey:(NSString *)key completion:(void (^)(void))completion {
     if (!data || !key.length) {
         return;
     }
     dispatch_async(_ioQueue, ^{
         [self.diskCache setData:data forKey:key];
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     });
 }
 
